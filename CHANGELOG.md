@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-02-13
+
+### Fixed
+- README banner image broken on npm (use absolute GitHub raw URL)
+
 ## [1.0.0] - 2026-02-13
 
 ### Added

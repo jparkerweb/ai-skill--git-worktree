@@ -1,6 +1,6 @@
 {
   "name": "git-worktree-skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interactive installer for Git Worktree Management skill across multiple AI agents",
   "main": "install.js",
   "bin": {

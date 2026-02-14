@@ -2,7 +2,7 @@
 
 Interactive installer for Git Worktree Management skill. Works with 14+ AI coding assistants.
 
-<img src="./docs/banner.jpg" height="250" />
+<img src="https://raw.githubusercontent.com/jparkerweb/ai-skill--git-worktree/main/docs/banner.jpg" height="250" />
 
 ## Quick Install
 
