@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# npm
+npm-debug.log*
+package-lock.json
+
+# Test artifacts (created during installation testing)
+.cursorrules
+.windsurfrules
+.clinerules
+.continuerules
+.rules
+.aider/
+.cline/
+.continue/
+.github/
+.windsurf/
+.roo/
+GEMINI.md
+AGENTS.md
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# AI
+CLAUDE.md
