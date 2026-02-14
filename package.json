@@ -1,6 +1,6 @@
 {
   "name": "git-worktree-skill",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Interactive installer for Git Worktree Management skill across multiple AI agents",
   "main": "install.js",
   "bin": {
@@ -13,22 +13,23 @@
     "README.md"
   ],
   "scripts": {
-    "start": "node install.js"
+    "start": "node install.js",
+    "test": "node --test test.js"
   },
   "keywords": [
     "git",
     "worktree",
     "ai",
     "skill",
+    "agent-skills",
     "claude",
-    "cursor",
     "copilot",
     "gemini",
     "windsurf",
     "cline",
-    "aider",
-    "continue",
-    "zed"
+    "roo-code",
+    "codex",
+    "opencode"
   ],
   "author": "jparkerweb",
   "license": "Apache-2.0",

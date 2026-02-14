@@ -1,6 +1,6 @@
 # Git Worktree Skill
 
-Interactive installer for Git Worktree Management skill. Works with 14+ AI coding assistants.
+Interactive installer for Git Worktree Management skill. Creates proper `SKILL.md` files following the [Agent Skills standard](https://agentskills.io/specification).
 
 <img src="https://raw.githubusercontent.com/jparkerweb/ai-skill--git-worktree/main/docs/banner.jpg" height="250" />
 
@@ -12,29 +12,26 @@ npx git-worktree-skill
 
 Or clone and run locally:
 ```bash
-git clone https://github.com/youruser/git-worktree-skill
-cd git-worktree-skill
+git clone https://github.com/jparkerweb/ai-skill--git-worktree
+cd ai-skill--git-worktree
 npm install
 npm start
 ```
 
 ## Supported AI Agents
 
-| Agent | Key | File Location |
-|-------|-----|---------------|
-| **Claude Code** | `claude-code` | `~/.claude/commands/git-worktree.md` |
-| **GitHub Copilot** | `github-copilot` | `.github/instructions/git-worktree.instructions.md` |
-| **Copilot CLI** | `copilot-cli` | `~/.config/gh-copilot/instructions.md` |
-| **Cursor** | `cursor` | `.cursorrules` or `~/.cursor/rules/` |
-| **Windsurf** | `windsurf` | `.windsurfrules` or `.windsurf/rules/` |
-| **Gemini CLI** | `gemini-cli` | `GEMINI.md` |
-| **Cline** | `cline` | `.clinerules` or `.cline/rules/` |
-| **Continue** | `continue` | `.continuerules` or `.continue/rules/` |
-| **Zed** | `zed` | `.rules` or `~/.config/zed/rules/` |
-| **Aider** | `aider` | `.aider/conventions.md` |
-| **OpenCode** | `opencode` | `AGENTS.md` |
-| **Roo Code** | `roo-code` | `.roo/rules/` |
-| **Codex CLI** | `codex` | `AGENTS.md` |
+| Agent | Key | Skill Location |
+|-------|-----|----------------|
+| **Claude Code** | `claude-code` | `.claude/skills/git-worktree/SKILL.md` |
+| **GitHub Copilot** | `github-copilot` | `.github/skills/git-worktree/SKILL.md` |
+| **Windsurf** | `windsurf` | `.cascade/skills/git-worktree/SKILL.md` |
+| **Cline** | `cline` | `.cline/skills/git-worktree/SKILL.md` |
+| **Gemini CLI** | `gemini-cli` | `.gemini/skills/git-worktree/SKILL.md` |
+| **Roo Code** | `roo-code` | `.roo/skills/git-worktree/SKILL.md` |
+| **Codex CLI** | `codex` | `.agents/skills/git-worktree/SKILL.md` |
+| **OpenCode** | `opencode` | `.opencode/skills/git-worktree/SKILL.md` |
+
+All agents also support global installation (e.g., `~/.claude/skills/git-worktree/SKILL.md`).
 
 ## CLI Options
 
@@ -43,13 +40,16 @@ npm start
 npx git-worktree-skill
 
 # Non-interactive install for specific agents
-npx git-worktree-skill --install claude-code,cursor,windsurf
+npx git-worktree-skill --install claude-code,cline,windsurf
 
 # Install with global paths preference
 npx git-worktree-skill --install claude-code --global
 
 # Install with project paths preference
-npx git-worktree-skill --install cursor,cline --project
+npx git-worktree-skill --install windsurf --project
+
+# Force overwrite existing skill files
+npx git-worktree-skill --install claude-code --force
 
 # Show help
 npx git-worktree-skill --help
@@ -67,10 +67,19 @@ When run without `--install`, the installer provides an interactive experience:
 
 1. **Select agents** - Use spacebar to toggle, enter to confirm
 2. **Choose paths** - Pick global or project-level installation
-3. **Handle conflicts** - Append, overwrite, or skip existing files
+3. **Handle conflicts** - Overwrite or skip existing skill files
 4. **View summary** - See all installed locations
 
 ## What Gets Installed
+
+Each agent receives a `SKILL.md` file with YAML frontmatter and comprehensive instructions:
+
+```yaml
+---
+name: git-worktree
+description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
+---
+```
 
 The skill provides your AI assistant with:
 
@@ -92,14 +101,14 @@ After installation, ask your AI assistant:
 
 ## Manual Installation
 
-If you prefer manual installation, copy the contents of `GIT-WORKTREE-PROMPT.md` to the appropriate location for your AI agent.
+If you prefer manual installation, copy `GIT-WORKTREE-PROMPT.md` into a `git-worktree/SKILL.md` file inside your agent's skills directory.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `install.mjs` | Interactive installer script |
-| `GIT-WORKTREE-PROMPT.md` | The skill content |
+| `install.js` | Interactive installer script |
+| `GIT-WORKTREE-PROMPT.md` | The skill content (with YAML frontmatter) |
 | `package.json` | Node.js package configuration |
 
 ## License

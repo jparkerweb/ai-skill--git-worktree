@@ -19,137 +19,80 @@ const AI_AGENTS = {
     name: 'Claude Code',
     description: 'Anthropic\'s CLI coding assistant',
     paths: [
-      { type: 'global', path: path.join(os.homedir(), '.claude', 'CLAUDE.md'), description: 'Global instructions (all projects)' },
-      { type: 'skill', path: path.join(os.homedir(), '.claude', 'commands', 'git-worktree.md'), description: 'Slash command (/git-worktree)' },
-    ],
-    defaultChoice: 1,
-    docs: 'https://docs.anthropic.com/en/docs/claude-code'
-  },
-  'cursor': {
-    name: 'Cursor',
-    description: 'AI-first code editor',
-    paths: [
-      { type: 'project', path: '.cursorrules', description: 'Project rules (current directory)' },
-      { type: 'global', path: path.join(os.homedir(), '.cursor', 'rules', 'git-worktree.mdc'), description: 'Global rules' },
+      { type: 'project', path: '.claude/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.claude', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://docs.cursor.com/context/rules-for-ai'
+    docs: 'https://code.claude.com/docs/en/skills'
   },
   'github-copilot': {
     name: 'GitHub Copilot',
     description: 'GitHub\'s AI pair programmer',
     paths: [
-      { type: 'project', path: '.github/copilot-instructions.md', description: 'Project instructions' },
-      { type: 'project', path: '.github/instructions/git-worktree.instructions.md', description: 'Modular instruction file' },
-    ],
-    defaultChoice: 1,
-    docs: 'https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot'
-  },
-  'copilot-cli': {
-    name: 'GitHub Copilot CLI',
-    description: 'Copilot in the terminal (gh copilot)',
-    paths: [
-      { type: 'global', path: path.join(os.homedir(), '.config', 'gh-copilot', 'instructions.md'), description: 'Global CLI instructions' },
+      { type: 'project', path: '.github/skills/git-worktree/SKILL.md', description: 'Project skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-command-line'
+    docs: 'https://docs.github.com/en/copilot'
   },
   'windsurf': {
     name: 'Windsurf',
     description: 'Codeium\'s agentic IDE',
     paths: [
-      { type: 'project', path: '.windsurfrules', description: 'Project rules (legacy)' },
-      { type: 'project', path: '.windsurf/rules/git-worktree.md', description: 'Project rules folder' },
-      { type: 'global', path: path.join(os.homedir(), '.windsurf', 'global_rules.md'), description: 'Global rules' },
+      { type: 'project', path: '.cascade/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.cascade', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://docs.windsurf.com/windsurf/cascade/rules'
-  },
-  'gemini-cli': {
-    name: 'Gemini CLI',
-    description: 'Google\'s AI in the terminal',
-    paths: [
-      { type: 'project', path: 'GEMINI.md', description: 'Project context file' },
-      { type: 'global', path: path.join(os.homedir(), '.gemini', 'GEMINI.md'), description: 'Global context' },
-    ],
-    defaultChoice: 0,
-    docs: 'https://github.com/anthropics/anthropic-cookbook'
+    docs: 'https://docs.windsurf.com/windsurf/cascade/skills'
   },
   'cline': {
     name: 'Cline',
     description: 'Autonomous AI coding agent for VS Code',
     paths: [
-      { type: 'project', path: '.clinerules', description: 'Project rules file' },
-      { type: 'project', path: '.cline/rules/git-worktree.md', description: 'Project rules folder' },
+      { type: 'project', path: '.cline/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.cline', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://github.com/cline/cline'
+    docs: 'https://docs.cline.bot/features/skills'
   },
-  'continue': {
-    name: 'Continue',
-    description: 'Open-source AI code assistant',
+  'gemini-cli': {
+    name: 'Gemini CLI',
+    description: 'Google\'s AI in the terminal',
     paths: [
-      { type: 'project', path: '.continuerules', description: 'Project rules file' },
-      { type: 'project', path: '.continue/rules/git-worktree.md', description: 'Project rules folder' },
+      { type: 'project', path: '.gemini/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.gemini', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://docs.continue.dev/customize/deep-dives/rules'
-  },
-  'zed': {
-    name: 'Zed',
-    description: 'High-performance code editor with AI',
-    paths: [
-      { type: 'project', path: '.rules', description: 'Project rules file' },
-      { type: 'global', path: path.join(os.homedir(), '.config', 'zed', 'rules', 'git-worktree.md'), description: 'Global rules' },
-    ],
-    defaultChoice: 0,
-    docs: 'https://zed.dev/docs/ai/rules'
-  },
-  'aider': {
-    name: 'Aider',
-    description: 'AI pair programming in the terminal',
-    paths: [
-      { type: 'project', path: '.aider/conventions.md', description: 'Project conventions' },
-      { type: 'global', path: path.join(os.homedir(), '.aider', 'conventions.md'), description: 'Global conventions' },
-    ],
-    defaultChoice: 0,
-    docs: 'https://aider.chat/docs/usage/conventions.html'
-  },
-  'opencode': {
-    name: 'OpenCode',
-    description: 'Terminal-based AI coding assistant',
-    paths: [
-      { type: 'project', path: 'AGENTS.md', description: 'Project context file' },
-    ],
-    defaultChoice: 0,
-    docs: 'https://github.com/opencode-ai/opencode'
+    docs: 'https://geminicli.com/docs/cli/skills/'
   },
   'roo-code': {
     name: 'Roo Code',
     description: 'AI coding assistant (Cline fork)',
     paths: [
-      { type: 'project', path: '.roo/rules/git-worktree.md', description: 'Project rules' },
+      { type: 'project', path: '.roo/skills/git-worktree/SKILL.md', description: 'Project skill' },
     ],
     defaultChoice: 0,
-    docs: 'https://github.com/roocode/roocode'
+    docs: 'https://docs.roocode.com/features/skills'
   },
   'codex': {
     name: 'Codex CLI',
     description: 'OpenAI\'s coding assistant CLI',
     paths: [
-      { type: 'project', path: 'AGENTS.md', description: 'Project context file' },
-      { type: 'global', path: path.join(os.homedir(), '.codex', 'instructions.md'), description: 'Global instructions' },
+      { type: 'project', path: '.agents/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.codex', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
     ],
     defaultChoice: 0,
     docs: 'https://github.com/openai/codex'
   },
-  'custom': {
-    name: 'Custom Path',
-    description: 'Specify your own file path',
-    paths: [],
+  'opencode': {
+    name: 'OpenCode',
+    description: 'Terminal-based AI coding assistant',
+    paths: [
+      { type: 'project', path: '.opencode/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.config', 'opencode', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
+    ],
     defaultChoice: 0,
-    docs: null
-  }
+    docs: 'https://github.com/opencode-ai/opencode'
+  },
 };
 
 // ============================================================================
@@ -162,7 +105,12 @@ function getSkillContent() {
     return fs.readFileSync(promptPath, 'utf-8');
   }
   // Fallback: embedded minimal version
-  return `# Git Worktree Management Assistant
+  return `---
+name: git-worktree
+description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
+---
+
+# Git Worktree Management Assistant
 
 You are a Git Worktree Management Assistant. Help users create, manage, and remove Git worktrees.
 
@@ -232,15 +180,14 @@ function fileExists(filePath) {
   return fs.existsSync(filePath);
 }
 
-function writeSkillFile(filePath, content, append = false) {
+function writeSkillFile(filePath, content, force = false) {
   ensureDirectoryExists(filePath);
 
-  if (append && fileExists(filePath)) {
+  if (!force && fileExists(filePath)) {
     const existing = fs.readFileSync(filePath, 'utf-8');
     if (existing.includes('Git Worktree Management')) {
       return { success: false, reason: 'already-exists' };
     }
-    content = existing + '\n\n' + content;
   }
 
   fs.writeFileSync(filePath, content, 'utf-8');
@@ -294,18 +241,6 @@ async function selectAgents() {
 
 async function selectPathForAgent(agentKey) {
   const agent = AI_AGENTS[agentKey];
-
-  if (agentKey === 'custom') {
-    const { customPath } = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'customPath',
-        message: 'Enter the full file path:',
-        validate: (input) => input.trim().length > 0 || 'Please enter a valid path'
-      }
-    ]);
-    return { path: customPath, type: 'custom', description: 'Custom path' };
-  }
 
   if (agent.paths.length === 1) {
     return agent.paths[0];
@@ -362,9 +297,8 @@ async function handleExistingFile(filePath, agentName) {
     {
       type: 'list',
       name: 'action',
-      message: `File exists at ${chalk.yellow(filePath)}. What would you like to do?`,
+      message: `SKILL.md exists at ${chalk.yellow(filePath)}. What would you like to do?`,
       choices: [
-        { name: 'Append skill to existing file', value: 'append' },
         { name: 'Overwrite file', value: 'overwrite' },
         { name: 'Skip this agent', value: 'skip' },
         { name: 'Choose different path', value: 'different' }
@@ -407,19 +341,13 @@ async function performInstallation(installations) {
           ? newPathInfo.path
           : path.resolve(process.cwd(), newPathInfo.path);
       }
+    }
 
-      if (action === 'append') {
-        const result = writeSkillFile(finalPath, skillContent, true);
-        if (!result.success && result.reason === 'already-exists') {
-          printWarning(`Skill already exists in ${finalPath}`);
-          results.push({ agent, success: false, reason: 'already-exists' });
-          continue;
-        }
-      } else {
-        writeSkillFile(finalPath, skillContent, false);
-      }
-    } else {
-      writeSkillFile(finalPath, skillContent, false);
+    const result = writeSkillFile(finalPath, skillContent);
+    if (!result.success && result.reason === 'already-exists') {
+      printWarning(`Skill already exists in ${finalPath}`);
+      results.push({ agent, success: false, reason: 'already-exists' });
+      continue;
     }
 
     printSuccess(`Installed to ${chalk.gray(finalPath)}`);
@@ -451,7 +379,8 @@ function printFinalSummary(results) {
     console.log(chalk.yellow.bold(`⚠ Skipped ${failed.length} agent(s):`));
     failed.forEach(r => {
       const agent = AI_AGENTS[r.agent];
-      console.log(`  • ${agent.name}: ${chalk.gray(r.reason)}`);
+      const name = agent ? agent.name : r.agent;
+      console.log(`  • ${name}: ${chalk.gray(r.reason)}`);
     });
   }
 
@@ -481,7 +410,7 @@ async function showDocumentation() {
 // NON-INTERACTIVE INSTALLATION
 // ============================================================================
 
-async function nonInteractiveInstall(agents, pathType = 'default') {
+async function nonInteractiveInstall(agents, pathType = 'default', force = false) {
   const skillContent = getSkillContent();
   const results = [];
 
@@ -516,18 +445,17 @@ async function nonInteractiveInstall(agents, pathType = 'default') {
 
     printInfo(`Installing for ${chalk.cyan(agent.name)}...`);
 
-    // Check existing file
-    if (fileExists(finalPath)) {
-      const result = writeSkillFile(finalPath, skillContent, true);
-      if (!result.success && result.reason === 'already-exists') {
-        printWarning(`Skill already exists in ${finalPath}`);
+    // Check existing file (skip duplicate check if --force)
+    if (!force && fileExists(finalPath)) {
+      const existing = fs.readFileSync(finalPath, 'utf-8');
+      if (existing.includes('Git Worktree Management')) {
+        printWarning(`Skill already exists in ${finalPath} (use --force to overwrite)`);
         results.push({ agent: agentKey, success: false, reason: 'already-exists' });
         continue;
       }
-    } else {
-      writeSkillFile(finalPath, skillContent, false);
     }
 
+    writeSkillFile(finalPath, skillContent, force);
     printSuccess(`Installed to ${chalk.gray(finalPath)}`);
     results.push({ agent: agentKey, success: true, path: finalPath });
   }
@@ -548,10 +476,11 @@ async function main() {
       console.log('Usage: npx git-worktree-skill [options]');
       console.log('');
       console.log('Interactive installer for Git Worktree Management skill.');
-      console.log('Supports 14+ AI coding assistants including:');
-      console.log('  • Claude Code, GitHub Copilot, Copilot CLI');
-      console.log('  • Cursor, Windsurf, Cline, Continue');
-      console.log('  • Gemini CLI, Zed, Aider, and more');
+      console.log('Creates SKILL.md files following the Agent Skills standard.');
+      console.log('');
+      console.log('Supported agents:');
+      console.log('  • Claude Code, GitHub Copilot, Windsurf, Cline');
+      console.log('  • Gemini CLI, Roo Code, Codex CLI, OpenCode');
       console.log('');
       console.log('Options:');
       console.log('  --help, -h              Show this help message');
@@ -560,15 +489,16 @@ async function main() {
       console.log('  --install <agents>      Non-interactive install (comma-separated)');
       console.log('  --global                Use global paths (with --install)');
       console.log('  --project               Use project paths (with --install)');
+      console.log('  --force                 Overwrite existing skill files (with --install)');
       console.log('');
       console.log('Examples:');
       console.log('  npx git-worktree-skill');
-      console.log('  npx git-worktree-skill --install claude-code,cursor');
-      console.log('  npx git-worktree-skill --install windsurf --project');
+      console.log('  npx git-worktree-skill --install claude-code,cline');
+      console.log('  npx git-worktree-skill --install windsurf --global');
+      console.log('  npx git-worktree-skill --install claude-code --force');
       console.log('');
-      console.log('Agent keys: claude-code, cursor, github-copilot, copilot-cli,');
-      console.log('            windsurf, gemini-cli, cline, continue, zed,');
-      console.log('            aider, opencode, roo-code, codex');
+      console.log('Agent keys: claude-code, github-copilot, windsurf, cline,');
+      console.log('            gemini-cli, roo-code, codex, opencode');
       console.log('');
       process.exit(0);
     }
@@ -585,8 +515,9 @@ async function main() {
       const agents = agentsArg.split(',').map(a => a.trim());
       const pathType = process.argv.includes('--global') ? 'global' :
                        process.argv.includes('--project') ? 'project' : 'default';
+      const force = process.argv.includes('--force');
 
-      const results = await nonInteractiveInstall(agents, pathType);
+      const results = await nonInteractiveInstall(agents, pathType, force);
       printFinalSummary(results);
       process.exit(0);
     }
@@ -600,9 +531,7 @@ async function main() {
       console.log(chalk.white.bold('Supported AI Agents:'));
       console.log('');
       Object.entries(AI_AGENTS).forEach(([key, agent]) => {
-        if (key !== 'custom') {
-          console.log(`  ${chalk.cyan(agent.name.padEnd(20))} ${chalk.gray(agent.description)}`);
-        }
+        console.log(`  ${chalk.cyan(key.padEnd(20))} ${agent.name} ${chalk.gray(`- ${agent.description}`)}`);
       });
       console.log('');
       process.exit(0);

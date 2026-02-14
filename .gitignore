@@ -5,20 +5,15 @@ node_modules/
 npm-debug.log*
 package-lock.json
 
-# Test artifacts (created during installation testing)
-.cursorrules
-.windsurfrules
-.clinerules
-.continuerules
-.rules
-.aider/
-.cline/
-.continue/
+# Test artifacts (skill directories created during testing)
+.claude/
 .github/
-.windsurf/
+.cascade/
+.cline/
+.gemini/
 .roo/
-GEMINI.md
-AGENTS.md
+.agents/
+.opencode/
 
 # OS files
 .DS_Store
@@ -35,6 +30,3 @@ Desktop.ini
 # Logs
 *.log
 logs/
-
-# AI
-CLAUDE.md

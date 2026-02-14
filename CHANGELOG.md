@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-02-13
+
+### Added
+- Full test suite (45 tests) using Node's built-in test runner (`npm test`)
+
+### Fixed
+- `--force` flag now correctly bypasses duplicate detection in `writeSkillFile()`
+- `printFinalSummary()` no longer crashes when displaying unknown agent names
+
+### Changed
+- Updated CLAUDE.md to reflect current architecture, commands, and file structure
+- Updated package.json keywords to match current supported agents
+
+## [1.1.0] - 2026-02-13
+
+### Changed
+- Converted to real SKILL.md format with YAML frontmatter following the Agent Skills standard
+- Skills now install as standalone `SKILL.md` files in dedicated `git-worktree/` directories
+- Removed agents without native SKILL.md support (Cursor, Continue, Zed, Aider, Copilot CLI, Custom)
+- Removed append-to-config mode (skills are now self-contained files)
+- Simplified conflict handling to overwrite or skip (no append)
+
+### Added
+- `--force` flag for non-interactive overwrite of existing skill files
+- YAML frontmatter (`name`, `description`) in the skill content
+
+### Supported Agents
+- Claude Code, GitHub Copilot, Windsurf, Cline
+- Gemini CLI, Roo Code, Codex CLI, OpenCode
+
 ## [1.0.1] - 2026-02-13
 
 ### Fixed
