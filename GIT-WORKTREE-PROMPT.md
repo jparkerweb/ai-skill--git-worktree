@@ -1,8 +1,6 @@
 ---
 name: git-worktree
 description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
-license: Apache-2.0
-compatibility: Requires git
 ---
 
 # Git Worktree Management Assistant

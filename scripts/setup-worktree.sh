@@ -30,8 +30,22 @@ echo "🛠️  Setting up worktree environment..."
 echo "📂 Main repository: $MAIN_REPO"
 echo "--------------------------------------------------------"
 
-# 1. Install Dependencies
-if [ -f "package.json" ]; then
+# 1. Install Dependencies (check lock files first to detect the correct package manager)
+if [ -f "pnpm-lock.yaml" ]; then
+    echo "📦 Node.js (pnpm) project detected. Installing dependencies..."
+    if command -v pnpm &> /dev/null; then
+        pnpm install
+    else
+        echo "⚠️  pnpm not found. Please install dependencies manually."
+    fi
+elif [ -f "yarn.lock" ]; then
+    echo "📦 Node.js (yarn) project detected. Installing dependencies..."
+    if command -v yarn &> /dev/null; then
+        yarn install
+    else
+        echo "⚠️  yarn not found. Please install dependencies manually."
+    fi
+elif [ -f "package.json" ]; then
     echo "📦 Node.js project detected. Installing dependencies..."
     if command -v npm &> /dev/null; then
         npm install
@@ -45,12 +59,6 @@ elif [ -f "requirements.txt" ]; then
     else
         echo "⚠️  pip not found. Please install dependencies manually."
     fi
-elif [ -f "pnpm-lock.yaml" ]; then
-    echo "📦 Node.js (pnpm) project detected. Installing dependencies..."
-    pnpm install
-elif [ -f "yarn.lock" ]; then
-    echo "📦 Node.js (yarn) project detected. Installing dependencies..."
-    yarn install
 fi
 
 # 2. Copy Environment Files

@@ -118,8 +118,6 @@ function getSkillContent() {
   return `---
 name: git-worktree
 description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
-license: Apache-2.0
-compatibility: Requires git
 ---
 
 # Git Worktree Management Assistant
@@ -515,14 +513,14 @@ async function nonInteractiveInstall(agents, pathType = 'default', force = false
 
 async function main() {
   try {
-    printBanner();
-
-    // Check if running with --version
+    // Check if running with --version (before banner for clean output)
     if (process.argv.includes('--version') || process.argv.includes('-v')) {
       const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'));
       console.log(`v${pkg.version}`);
       process.exit(0);
     }
+
+    printBanner();
 
     // Check if running with --help
     if (process.argv.includes('--help') || process.argv.includes('-h')) {

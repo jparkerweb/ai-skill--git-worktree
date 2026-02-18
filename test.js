@@ -258,15 +258,13 @@ describe('--install multiple agents', () => {
 // ============================================================================
 
 describe('SKILL.md content', () => {
-  it('should have YAML frontmatter with name, description, license, and compatibility', async () => {
+  it('should have YAML frontmatter with name and description', async () => {
     await runInDir(tmpDir, '--install', 'claude-code');
     const skillPath = path.join(tmpDir, '.claude', 'skills', 'git-worktree', 'SKILL.md');
     const content = fs.readFileSync(skillPath, 'utf-8').replace(/\r\n/g, '\n');
     assert.ok(content.startsWith('---\n'), 'Must start with frontmatter');
     assert.match(content, /^name:\s*git-worktree$/m);
     assert.match(content, /^description:\s*.+$/m);
-    assert.match(content, /^license:\s*Apache-2.0$/m);
-    assert.match(content, /^compatibility:\s*Requires git$/m);
   });
 
   it('should contain the full skill instructions', async () => {
@@ -489,7 +487,7 @@ describe('banner', () => {
 // ============================================================================
 
 describe('non-destructive behavior', () => {
-  it('should not modify an existing unrelated SKILL.md', async () => {
+  it('should overwrite an existing unrelated SKILL.md', async () => {
     const skillDir = path.join(tmpDir, '.claude', 'skills', 'git-worktree');
     fs.mkdirSync(skillDir, { recursive: true });
     const skillPath = path.join(skillDir, 'SKILL.md');
