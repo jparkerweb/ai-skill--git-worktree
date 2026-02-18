@@ -10,7 +10,8 @@
   "files": [
     "install.js",
     "GIT-WORKTREE-PROMPT.md",
-    "README.md"
+    "README.md",
+    "scripts"
   ],
   "scripts": {
     "start": "node install.js",

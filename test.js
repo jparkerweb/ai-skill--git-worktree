@@ -77,8 +77,20 @@ describe('GIT-WORKTREE-PROMPT.md', () => {
 });
 
 // ============================================================================
-// --help flag
+// --version flag
 // ============================================================================
+
+describe('--version', () => {
+  it('should show version information', async () => {
+    const { stdout } = await run('--version');
+    assert.match(stdout, /v\d+\.\d+\.\d+/);
+  });
+
+  it('-v should also work', async () => {
+    const { stdout } = await run('-v');
+    assert.match(stdout, /v\d+\.\d+\.\d+/);
+  });
+});
 
 describe('--help', () => {
   it('should show usage information', async () => {
@@ -103,6 +115,7 @@ describe('--help', () => {
     assert.ok(stdout.includes('github-copilot'));
     assert.ok(stdout.includes('windsurf'));
     assert.ok(stdout.includes('cline'));
+    assert.ok(stdout.includes('cursor'));
     assert.ok(stdout.includes('gemini-cli'));
     assert.ok(stdout.includes('roo-code'));
     assert.ok(stdout.includes('codex'));
@@ -120,10 +133,10 @@ describe('--help', () => {
 // ============================================================================
 
 describe('--list', () => {
-  it('should show all 8 supported agents', async () => {
+  it('should show all supported agents', async () => {
     const { stdout } = await run('--list');
     const agents = [
-      'claude-code', 'github-copilot', 'windsurf', 'cline',
+      'claude-code', 'github-copilot', 'windsurf', 'cline', 'cursor',
       'gemini-cli', 'roo-code', 'codex', 'opencode',
     ];
     for (const agent of agents) {
@@ -133,7 +146,7 @@ describe('--list', () => {
 
   it('should not list removed agents', async () => {
     const { stdout } = await run('--list');
-    const removed = ['cursor', 'copilot-cli', 'continue', 'zed', 'aider', 'custom'];
+    const removed = ['copilot-cli', 'continue', 'zed', 'aider', 'custom'];
     for (const agent of removed) {
       assert.ok(!stdout.includes(agent), `Should not list removed agent: ${agent}`);
     }
@@ -157,6 +170,7 @@ describe('--docs', () => {
     assert.ok(stdout.includes('GitHub Copilot'));
     assert.ok(stdout.includes('Windsurf'));
     assert.ok(stdout.includes('Cline'));
+    assert.ok(stdout.includes('Cursor'));
     assert.ok(stdout.includes('Gemini CLI'));
     assert.ok(stdout.includes('Roo Code'));
     assert.ok(stdout.includes('Codex CLI'));
@@ -217,6 +231,12 @@ describe('--install single agent', () => {
     const skillPath = path.join(tmpDir, '.opencode', 'skills', 'git-worktree', 'SKILL.md');
     assert.ok(fs.existsSync(skillPath));
   });
+
+  it('should create SKILL.md for cursor', async () => {
+    await runInDir(tmpDir, '--install', 'cursor');
+    const skillPath = path.join(tmpDir, '.cursor', 'skills', 'git-worktree', 'SKILL.md');
+    assert.ok(fs.existsSync(skillPath));
+  });
 });
 
 // ============================================================================
@@ -238,13 +258,15 @@ describe('--install multiple agents', () => {
 // ============================================================================
 
 describe('SKILL.md content', () => {
-  it('should have YAML frontmatter with name and description', async () => {
+  it('should have YAML frontmatter with name, description, license, and compatibility', async () => {
     await runInDir(tmpDir, '--install', 'claude-code');
     const skillPath = path.join(tmpDir, '.claude', 'skills', 'git-worktree', 'SKILL.md');
     const content = fs.readFileSync(skillPath, 'utf-8').replace(/\r\n/g, '\n');
     assert.ok(content.startsWith('---\n'), 'Must start with frontmatter');
     assert.match(content, /^name:\s*git-worktree$/m);
     assert.match(content, /^description:\s*.+$/m);
+    assert.match(content, /^license:\s*Apache-2.0$/m);
+    assert.match(content, /^compatibility:\s*Requires git$/m);
   });
 
   it('should contain the full skill instructions', async () => {
@@ -265,6 +287,18 @@ describe('SKILL.md content', () => {
     const source = fs.readFileSync(PROMPT_FILE, 'utf-8');
     assert.equal(installed, source);
   });
+
+  it('should copy the scripts directory', async () => {
+    await runInDir(tmpDir, '--install', 'claude-code');
+    const scriptPath = path.join(tmpDir, '.claude', 'skills', 'git-worktree', 'scripts', 'setup-worktree.sh');
+    assert.ok(fs.existsSync(scriptPath), 'Script should be copied');
+
+    // On Unix, check if executable
+    if (os.platform() !== 'win32') {
+      const stats = fs.statSync(scriptPath);
+      assert.ok((stats.mode & 0o111) !== 0, 'Script should be executable');
+    }
+  });
 });
 
 // ============================================================================
@@ -278,12 +312,13 @@ describe('directory creation', () => {
   });
 
   it('should create correct directory structure for each agent', async () => {
-    await runInDir(tmpDir, '--install', 'claude-code,github-copilot,windsurf,cline,gemini-cli,roo-code,codex,opencode');
+    await runInDir(tmpDir, '--install', 'claude-code,github-copilot,windsurf,cline,cursor,gemini-cli,roo-code,codex,opencode');
     const expectedDirs = [
       '.claude/skills/git-worktree',
       '.github/skills/git-worktree',
       '.cascade/skills/git-worktree',
       '.cline/skills/git-worktree',
+      '.cursor/skills/git-worktree',
       '.gemini/skills/git-worktree',
       '.roo/skills/git-worktree',
       '.agents/skills/git-worktree',

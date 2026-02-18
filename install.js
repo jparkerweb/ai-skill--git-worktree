@@ -93,6 +93,16 @@ const AI_AGENTS = {
     defaultChoice: 0,
     docs: 'https://github.com/opencode-ai/opencode'
   },
+  'cursor': {
+    name: 'Cursor',
+    description: 'AI-powered code editor',
+    paths: [
+      { type: 'project', path: '.cursor/skills/git-worktree/SKILL.md', description: 'Project skill' },
+      { type: 'global', path: path.join(os.homedir(), '.cursor', 'skills', 'git-worktree', 'SKILL.md'), description: 'Global skill' },
+    ],
+    defaultChoice: 0,
+    docs: 'https://cursor.com/docs/context/skills'
+  },
 };
 
 // ============================================================================
@@ -108,6 +118,8 @@ function getSkillContent() {
   return `---
 name: git-worktree
 description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
+license: Apache-2.0
+compatibility: Requires git
 ---
 
 # Git Worktree Management Assistant
@@ -180,6 +192,30 @@ function fileExists(filePath) {
   return fs.existsSync(filePath);
 }
 
+function copyRecursiveSync(src, dest) {
+  const exists = fs.existsSync(src);
+  const stats = exists && fs.statSync(src);
+  const isDirectory = exists && stats.isDirectory();
+  if (isDirectory) {
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
+    }
+    fs.readdirSync(src).forEach((childItemName) => {
+      copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
+    });
+  } else {
+    fs.copyFileSync(src, dest);
+    // Ensure .sh scripts are executable
+    if (src.endsWith('.sh')) {
+      try {
+        fs.chmodSync(dest, 0o755);
+      } catch (e) {
+        // ignore chmod errors (e.g. on Windows)
+      }
+    }
+  }
+}
+
 function writeSkillFile(filePath, content, force = false) {
   ensureDirectoryExists(filePath);
 
@@ -191,6 +227,16 @@ function writeSkillFile(filePath, content, force = false) {
   }
 
   fs.writeFileSync(filePath, content, 'utf-8');
+
+  // Copy scripts if they exist
+  const destDir = path.dirname(filePath);
+  const scriptsSrc = path.join(__dirname, 'scripts');
+  const scriptsDest = path.join(destDir, 'scripts');
+
+  if (fs.existsSync(scriptsSrc)) {
+    copyRecursiveSync(scriptsSrc, scriptsDest);
+  }
+
   return { success: true };
 }
 
@@ -471,6 +517,13 @@ async function main() {
   try {
     printBanner();
 
+    // Check if running with --version
+    if (process.argv.includes('--version') || process.argv.includes('-v')) {
+      const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'));
+      console.log(`v${pkg.version}`);
+      process.exit(0);
+    }
+
     // Check if running with --help
     if (process.argv.includes('--help') || process.argv.includes('-h')) {
       console.log('Usage: npx git-worktree-skill [options]');
@@ -479,11 +532,12 @@ async function main() {
       console.log('Creates SKILL.md files following the Agent Skills standard.');
       console.log('');
       console.log('Supported agents:');
-      console.log('  • Claude Code, GitHub Copilot, Windsurf, Cline');
+      console.log('  • Claude Code, GitHub Copilot, Windsurf, Cline, Cursor');
       console.log('  • Gemini CLI, Roo Code, Codex CLI, OpenCode');
       console.log('');
       console.log('Options:');
       console.log('  --help, -h              Show this help message');
+      console.log('  --version, -v           Show version information');
       console.log('  --docs                  Show documentation links for all agents');
       console.log('  --list                  List all supported agents');
       console.log('  --install <agents>      Non-interactive install (comma-separated)');
@@ -497,7 +551,7 @@ async function main() {
       console.log('  npx git-worktree-skill --install windsurf --global');
       console.log('  npx git-worktree-skill --install claude-code --force');
       console.log('');
-      console.log('Agent keys: claude-code, github-copilot, windsurf, cline,');
+      console.log('Agent keys: claude-code, github-copilot, windsurf, cline, cursor,');
       console.log('            gemini-cli, roo-code, codex, opencode');
       console.log('');
       process.exit(0);

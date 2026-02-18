@@ -28,6 +28,7 @@ npm start
 | **Cline** | `cline` | `.cline/skills/git-worktree/SKILL.md` |
 | **Gemini CLI** | `gemini-cli` | `.gemini/skills/git-worktree/SKILL.md` |
 | **Roo Code** | `roo-code` | `.roo/skills/git-worktree/SKILL.md` |
+| **Cursor** | `cursor` | `.cursor/skills/git-worktree/SKILL.md` |
 | **Codex CLI** | `codex` | `.agents/skills/git-worktree/SKILL.md` |
 | **OpenCode** | `opencode` | `.opencode/skills/git-worktree/SKILL.md` |
 
@@ -47,6 +48,9 @@ npx git-worktree-skill --install claude-code --global
 
 # Install with project paths preference
 npx git-worktree-skill --install windsurf --project
+
+# Show version
+npx git-worktree-skill --version
 
 # Force overwrite existing skill files
 npx git-worktree-skill --install claude-code --force
@@ -78,6 +82,8 @@ Each agent receives a `SKILL.md` file with YAML frontmatter and comprehensive in
 ---
 name: git-worktree
 description: Git Worktree Management Assistant - guides users in creating, managing, and removing Git worktrees for parallel development workflows
+license: Apache-2.0
+compatibility: Requires git
 ---
 ```
 
@@ -109,8 +115,9 @@ If you prefer manual installation, copy `GIT-WORKTREE-PROMPT.md` into a `git-wor
 |------|---------|
 | `install.js` | Interactive installer script |
 | `GIT-WORKTREE-PROMPT.md` | The skill content (with YAML frontmatter) |
+| `scripts/setup-worktree.sh` | Automated setup script for worktrees |
 | `package.json` | Node.js package configuration |
 
 ## License
 
-MIT
+Apache-2.0
