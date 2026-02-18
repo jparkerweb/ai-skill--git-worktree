@@ -26,12 +26,13 @@ npm start
 | **GitHub Copilot** | `github-copilot` | `.github/skills/git-worktree/SKILL.md` |
 | **Windsurf** | `windsurf` | `.cascade/skills/git-worktree/SKILL.md` |
 | **Cline** | `cline` | `.cline/skills/git-worktree/SKILL.md` |
+| **Cursor** | `cursor` | `.cursor/skills/git-worktree/SKILL.md` |
 | **Gemini CLI** | `gemini-cli` | `.gemini/skills/git-worktree/SKILL.md` |
 | **Roo Code** | `roo-code` | `.roo/skills/git-worktree/SKILL.md` |
 | **Codex CLI** | `codex` | `.agents/skills/git-worktree/SKILL.md` |
 | **OpenCode** | `opencode` | `.opencode/skills/git-worktree/SKILL.md` |
 
-All agents also support global installation (e.g., `~/.claude/skills/git-worktree/SKILL.md`).
+Most agents support both project and global installation (e.g., `~/.claude/skills/git-worktree/SKILL.md`).
 
 ## CLI Options
 
@@ -47,6 +48,9 @@ npx git-worktree-skill --install claude-code --global
 
 # Install with project paths preference
 npx git-worktree-skill --install windsurf --project
+
+# Show version
+npx git-worktree-skill --version
 
 # Force overwrite existing skill files
 npx git-worktree-skill --install claude-code --force
@@ -109,8 +113,9 @@ If you prefer manual installation, copy `GIT-WORKTREE-PROMPT.md` into a `git-wor
 |------|---------|
 | `install.js` | Interactive installer script |
 | `GIT-WORKTREE-PROMPT.md` | The skill content (with YAML frontmatter) |
+| `scripts/setup-worktree.sh` | Automated setup script for worktrees |
 | `package.json` | Node.js package configuration |
 
 ## License
 
-MIT
+Apache-2.0

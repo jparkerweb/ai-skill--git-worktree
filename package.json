@@ -1,6 +1,6 @@
 {
   "name": "git-worktree-skill",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "Interactive installer for Git Worktree Management skill across multiple AI agents",
   "main": "install.js",
   "bin": {
@@ -10,7 +10,8 @@
   "files": [
     "install.js",
     "GIT-WORKTREE-PROMPT.md",
-    "README.md"
+    "README.md",
+    "scripts"
   ],
   "scripts": {
     "start": "node install.js",
@@ -27,6 +28,7 @@
     "gemini",
     "windsurf",
     "cline",
+    "cursor",
     "roo-code",
     "codex",
     "opencode"

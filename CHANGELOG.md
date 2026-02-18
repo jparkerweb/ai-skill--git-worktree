@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-02-17
+
+### Added
+- **Cursor support** — new `cursor` agent with project and global skill paths
+- **Automated setup script** (`scripts/setup-worktree.sh`) — auto-detects project type (npm/pnpm/yarn/pip), installs dependencies, and copies environment files into new worktrees
+- **`--version` / `-v` flag** — prints the current package version
+- **Multi-folder workspace tips** in skill prompt for Cursor, Windsurf, VS Code, and Trae
+- **Post-creation setup workflow** section in the skill prompt documenting the automated setup script
+- Scripts directory is now copied alongside `SKILL.md` during installation
+
+### Changed
+- Help output and README updated to reflect Cursor support and `--version` flag
+- README license corrected from MIT to Apache-2.0
+- Extended test suite to cover Cursor agent and setup script installation
+
+### Fixed
+- Package manager detection order in `setup-worktree.sh` (lock files now checked before `package.json`)
+- `--version` flag no longer prints the decorative banner
+
+### Supported Agents
+- Claude Code, GitHub Copilot, Windsurf, Cline, Cursor
+- Gemini CLI, Roo Code, Codex CLI, OpenCode
+
 ## [1.1.1] - 2026-02-13
 
 ### Added

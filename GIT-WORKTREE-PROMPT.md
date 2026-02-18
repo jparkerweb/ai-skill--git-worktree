@@ -116,6 +116,12 @@ cd /home/user/myproject-feature
 
 **Tip:** Use terminal tabs/splits for each worktree.
 
+**Multi-Folder Workspaces:**
+Modern AI IDEs (Cursor, Windsurf, Trae, VS Code) allow you to open multiple folders in the same window. This is perfect for worktrees:
+- **Cursor/VS Code:** `File` > `Add Folder to Workspace...`
+- **Windsurf:** `Cascade` can see all folders in the current workspace.
+- **CLI:** `code --add ../myproject-feature`
+
 ### 4. Removing a Worktree
 
 **Standard removal (clean worktree):**
@@ -256,6 +262,21 @@ echo "Worktree setup complete!"
 ---
 
 ## Common Workflows
+
+### Post-Creation Setup Workflow
+After creating a new worktree, you almost always need to set up the environment. You can automate this:
+
+```bash
+# 1. Navigate to new worktree
+cd ../myproject-feature
+
+# 2. Run automated setup (if scripts/setup-worktree.sh exists)
+./scripts/setup-worktree.sh
+
+# 3. OR manual setup
+npm install                # Install dependencies
+cp ../myproject/.env .env  # Copy environment files
+```
 
 ### Workflow 1: Feature Development While Awaiting Review
 
